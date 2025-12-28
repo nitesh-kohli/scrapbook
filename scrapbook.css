@@ -1,0 +1,217 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Dancing+Script:wght@600&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+/* ================= BODY ================= */
+body {
+  margin: 0;
+  height: 100vh;
+  background: radial-gradient(circle at top, #fff5f7, #f1e4dc);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* ================= BACKGROUND ORBS ================= */
+.bg-orbs {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.bg-orbs span {
+  position: absolute;
+  width: clamp(90px, 18vw, 140px);
+  height: clamp(90px, 18vw, 140px);
+  background: rgba(255, 180, 200, 0.35);
+  border-radius: 50%;
+  filter: blur(clamp(30px, 6vw, 45px));
+  animation: floatOrb 24s linear infinite;
+}
+
+.bg-orbs span:nth-child(1) { left: 10%; animation-duration: 26s; }
+.bg-orbs span:nth-child(2) { left: 30%; animation-duration: 30s; }
+.bg-orbs span:nth-child(3) { left: 50%; animation-duration: 24s; }
+.bg-orbs span:nth-child(4) { left: 70%; animation-duration: 32s; }
+.bg-orbs span:nth-child(5) { left: 90%; animation-duration: 28s; }
+
+@keyframes floatOrb {
+  from { transform: translateY(110vh); }
+  to   { transform: translateY(-220px); }
+}
+
+/* ================= SCENE ================= */
+.scene {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 2000px;
+}
+
+/* ================= BOOK (MOBILE / TABLET) ================= */
+.book {
+  position: relative;
+  width: min(90vw, 380px);
+  aspect-ratio: 3 / 4;
+  max-height: 90vh;
+  transform-style: preserve-3d;
+}
+
+/* ================= COVER ================= */
+.cover {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #f4b6c2, #d97b93);
+  border-radius: 16px;
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.35),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.12);
+  padding: clamp(20px, 4vw, 32px);
+  text-align: center;
+  color: #fff;
+  transform-origin: left center;
+  backface-visibility: hidden;
+  transition: transform 1.4s cubic-bezier(0.77, 0, 0.175, 1);
+  z-index: 3;
+}
+
+.cover h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(22px, 5vw, 32px);
+  margin-bottom: 12px;
+}
+
+.cover p {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(16px, 4vw, 20px);
+  margin-bottom: 40px;
+}
+
+.cover button {
+  background: rgba(255, 255, 255, 0.95);
+  color: #7a3b4c;
+  border: none;
+  padding: clamp(10px, 3vw, 14px) clamp(18px, 5vw, 28px);
+  border-radius: 30px;
+  font-size: clamp(14px, 4vw, 16px);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+/* ================= PAGE ================= */
+.page {
+  position: absolute;
+  inset: 0;
+  background: #fff8e7;
+  border-radius: 16px;
+  padding: clamp(20px, 4vw, 32px);
+  font-family: 'Playfair Display', serif;
+  backface-visibility: hidden;
+  overflow: hidden;
+}
+
+.page h2 {
+  font-size: clamp(18px, 4.5vw, 24px);
+  margin-top: 0;
+}
+
+.page p {
+  font-size: clamp(14px, 3.8vw, 18px);
+  line-height: 1.6;
+}
+
+/* ================= VISIBILITY ================= */
+.current {
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.current.visible {
+  opacity: 1;
+}
+
+.turning {
+  z-index: 2;
+  transform-origin: left center;
+}
+
+.hidden {
+  display: none;
+}
+
+/* ================= PAGE FLIP ANIMATIONS ================= */
+.turn-forward {
+  animation: flipForward 0.9s ease forwards;
+}
+
+@keyframes flipForward {
+  from { transform: rotateY(0); }
+  to   { transform: rotateY(-180deg); }
+}
+
+.turn-backward {
+  animation: flipBackward 0.9s ease forwards;
+}
+
+@keyframes flipBackward {
+  from { transform: rotateY(-180deg); }
+  to   { transform: rotateY(0); }
+}
+
+/* ================= NAV BUTTONS ================= */
+#nextBtn,
+#prevBtn {
+  position: absolute;
+  bottom: 16px;
+  padding: clamp(8px, 2.5vw, 12px) clamp(12px, 4vw, 18px);
+  border-radius: 20px;
+  font-size: clamp(13px, 3.5vw, 15px);
+  border: none;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+#nextBtn {
+  right: 16px;
+  background: #f4b6c2;
+  color: #fff;
+}
+
+#prevBtn {
+  left: 16px;
+  background: #e0c3cc;
+  color: #5a3e36;
+}
+
+#prevBtn:disabled,
+#nextBtn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* ================= LAPTOP & DESKTOP ================= */
+@media (min-width: 1024px) {
+  .book {
+    width: 70vw;          /* ~70% of screen width */
+    max-width: 1000px;    /* prevent over-stretching */
+    aspect-ratio: 16 / 10; /* wider feel on laptop */
+  }
+}
+
+/* ================= ACCESSIBILITY ================= */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

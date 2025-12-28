@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Little Universe</title>
+  <link rel="stylesheet" href="scrapbook.css" />
+</head>
+<body>
+
+  <!-- Background Orbs -->
+  <div class="bg-orbs">
+    <span></span><span></span><span></span>
+    <span></span><span></span>
+  </div>
+
+  <div class="scene">
+    <div class="book" id="book">
+
+      <!-- CURRENT PAGE -->
+      <div class="page current" id="currentPage">
+        <div class="content"></div>
+        <button id="prevBtn">← Prev</button>
+        <button id="nextBtn">Next →</button>
+      </div>
+
+      <!-- TURNING PAGE (visual only) -->
+      <div class="page turning hidden" id="turningPage"></div>
+
+      <!-- COVER -->
+      <div class="cover" id="cover">
+        <h1>Our Little Universe</h1>
+        <p>Every page holds us.</p>
+        <button id="openBook">Open Scrapbook</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="scrapbook.js"></script>
+</body>
+</html>
